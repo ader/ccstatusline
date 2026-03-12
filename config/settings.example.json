@@ -1,0 +1,92 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "model",
+        "color": "cyan"
+      },
+      {
+        "id": "2",
+        "type": "separator"
+      },
+      {
+        "id": "3",
+        "type": "thinking-effort"
+      },
+      {
+        "id": "ce2e5c39-8b36-467a-9a44-558775969a27",
+        "type": "separator"
+      },
+      {
+        "id": "f33f7a08-8638-4b8e-aac6-11f6477c0be2",
+        "type": "context-dots"
+      },
+      {
+        "id": "sep-quote",
+        "type": "separator"
+      },
+      {
+        "id": "quote1",
+        "type": "random-quote",
+        "color": "brightCyan",
+        "metadata": {
+          "quotes": "每天進步一點點|保持專注|簡單就是美|先求有再求好|寫程式要開心|少即是多|程式是寫給人看的|今天也要全力以赴|不急，但不停|做完比做好更重要|重構是一種善良|好的命名勝過註解|別過度設計|一次只做一件事|休息是為了走更長的路|先跑起來再說|Bug 是學習的機會|測試是你最好的朋友|Deadline 是最強的動力|Coffee 加載中...|Code Review 讓人成長|把複雜變簡單|今日事今日畢|不要重複自己|小步快跑|持續改善|優雅地解決問題|讀 Code 比寫 Code 重要|想清楚再動手|技術債要還的|Log 寫好少加班|沒有銀彈|信任你的隊友|保持好奇心|學無止境|穩定比速度重要|自動化一切可自動化的|文件寫了嗎？|程式碼會說話|越簡單越不容易壞|先理解問題再寫解法|魔鬼藏在細節裡|善用工具提升效率|Don't Panic|Keep Calm & Code On|正在編譯你的未來|你比你想的更厲害|累了就喝杯茶吧|把今天的自己當作 v1.1|享受解題的過程",
+          "interval": "300"
+        }
+      }
+    ],
+    [
+      {
+        "id": "d3de87a2-29a6-4f85-a78d-e00186aa7a9a",
+        "type": "git-root-dir"
+      },
+      {
+        "id": "23a52931-4ce5-4d60-aa27-4276265bb5ac",
+        "type": "separator"
+      },
+      {
+        "id": "5",
+        "type": "git-branch",
+        "color": "magenta"
+      },
+      {
+        "id": "6",
+        "type": "separator"
+      },
+      {
+        "id": "8",
+        "type": "git-file-status",
+        "color": "brightBlue"
+      },
+      {
+        "id": "9",
+        "type": "separator"
+      },
+      {
+        "id": "7",
+        "type": "git-changes",
+        "color": "blue"
+      }
+    ],
+    []
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 2,
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false
+  }
+}

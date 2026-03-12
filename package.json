@@ -1,7 +1,7 @@
 {
-  "name": "ccstatusline",
-  "version": "2.2.4",
-  "description": "A customizable status line formatter for Claude Code CLI",
+  "name": "@ader-hwang/ccstatusline",
+  "version": "1.0.0",
+  "description": "Customized ccstatusline with context-dots, git-file-status, random-quote widgets",
   "module": "src/ccstatusline.ts",
   "type": "module",
   "bin": {
@@ -60,7 +60,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sirmalloc/ccstatusline.git"
+    "url": "git+https://github.com/ader/ccstatusline.git"
   },
   "engines": {
     "node": ">=14.0.0"

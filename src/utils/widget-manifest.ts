@@ -21,6 +21,7 @@ export const WIDGET_MANIFEST: WidgetManifestEntry[] = [
     { type: 'output-style', create: () => new widgets.OutputStyleWidget() },
     { type: 'git-branch', create: () => new widgets.GitBranchWidget() },
     { type: 'git-changes', create: () => new widgets.GitChangesWidget() },
+    { type: 'git-file-status', create: () => new widgets.GitFileStatusWidget() },
     { type: 'git-insertions', create: () => new widgets.GitInsertionsWidget() },
     { type: 'git-deletions', create: () => new widgets.GitDeletionsWidget() },
     { type: 'git-root-dir', create: () => new widgets.GitRootDirWidget() },
@@ -52,8 +53,10 @@ export const WIDGET_MANIFEST: WidgetManifestEntry[] = [
     { type: 'reset-timer', create: () => new widgets.BlockResetTimerWidget() },
     { type: 'weekly-reset-timer', create: () => new widgets.WeeklyResetTimerWidget() },
     { type: 'context-bar', create: () => new widgets.ContextBarWidget() },
+    { type: 'context-dots', create: () => new widgets.ContextDotsWidget() },
     { type: 'skills', create: () => new widgets.SkillsWidget() },
-    { type: 'thinking-effort', create: () => new widgets.ThinkingEffortWidget() }
+    { type: 'thinking-effort', create: () => new widgets.ThinkingEffortWidget() },
+    { type: 'random-quote', create: () => new widgets.RandomQuoteWidget() }
 ];
 
 export const LAYOUT_WIDGET_MANIFEST: LayoutWidgetManifestEntry[] = [

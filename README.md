@@ -1,33 +1,105 @@
 <div align="center">
 
 <pre>
-              _        _             _ _            
-  ___ ___ ___| |_ __ _| |_ _   _ ___| (_)_ __   ___ 
+              _        _             _ _
+  ___ ___ ___| |_ __ _| |_ _   _ ___| (_)_ __   ___
  / __/ __/ __| __/ _` | __| | | / __| | | '_ \ / _ \
 | (_| (__\__ \ || (_| | |_| |_| \__ \ | | | | |  __/
  \___\___|___/\__\__,_|\__|\__,_|___/_|_|_| |_|\___|
-                                                     
+
 </pre>
 
-# ccstatusline
+# @ader-hwang/ccstatusline
 
-**🎨 A highly customizable status line formatter for Claude Code CLI**
-*Display model info, git branch, token usage, and other metrics in your terminal*
+**A customized fork of [ccstatusline](https://github.com/sirmalloc/ccstatusline) with additional widgets**
 
-[![npm version](https://img.shields.io/npm/v/ccstatusline.svg)](https://www.npmjs.com/package/ccstatusline)
-[![npm downloads](https://img.shields.io/npm/dm/ccstatusline.svg)](https://www.npmjs.com/package/ccstatusline)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/sirmalloc/ccstatusline/blob/main/LICENSE)
-[![Node.js Version](https://img.shields.io/node/v/ccstatusline.svg)](https://nodejs.org)
-[![install size](https://packagephobia.com/badge?p=ccstatusline)](https://packagephobia.com/result?p=ccstatusline)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/sirmalloc/ccstatusline/graphs/commit-activity)
-
-[![Mentioned in Awesome Claude Code](https://awesome.re/mentioned-badge.svg)](https://github.com/hesreallyhim/awesome-claude-code)
-[![ClaudeLog - A comprehensive knowledge base for Claude](https://claudelog.com/img/claude_log_badge.svg)](https://claudelog.com/)
-
-
-![Demo](https://raw.githubusercontent.com/sirmalloc/ccstatusline/main/screenshots/demo.gif)
+[![npm version](https://img.shields.io/npm/v/@ader-hwang/ccstatusline.svg)](https://www.npmjs.com/package/@ader-hwang/ccstatusline)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/ader/ccstatusline/blob/main/LICENSE)
+[![Node.js Version](https://img.shields.io/node/v/@ader-hwang/ccstatusline.svg)](https://nodejs.org)
 
 </div>
+
+## Fork 說明
+
+本專案 fork 自 [sirmalloc/ccstatusline](https://github.com/sirmalloc/ccstatusline)，新增以下功能：
+
+![Screenshot](https://raw.githubusercontent.com/ader/ccstatusline/main/screenshots/ccusageExt.png)
+
+### 新增 Widget
+
+#### Context Dots（彩色圓點進度條）
+
+以圓點視覺化顯示 context 使用率，依門檻自動變色：
+
+- `< 50%`：綠色 (green)
+- `50% ~ 70%`：黃色 (yellow)
+- `>= 70%`：紅色 (red)
+
+顯示效果：`Ctx: ●●●●●○○○○○ 46.0%`
+
+| 參數 | 說明 | 預設值 |
+|------|------|--------|
+| `metadata.dots` | 圓點總數 | `10` |
+
+#### Git File Status（檔案狀態計數）
+
+顯示 git 工作區的檔案狀態計數，與 `git-changes`（顯示行數增刪）互補：
+
+顯示效果：`+3 ~2 ?1`（3 個 staged、2 個 modified、1 個 untracked）
+
+無變更時顯示 `clean`。
+
+#### Random Quote（隨機格言）
+
+定時隨機顯示自訂詞句，同一時間窗口內顯示同一句（跨 process 一致）。
+
+顯示效果：`保持專注`
+
+| 參數 | 說明 | 預設值 |
+|------|------|--------|
+| `metadata.quotes` | 自訂詞句，以 `\|` 分隔 | 5 句英文預設語 |
+| `metadata.interval` | 切換間隔（秒） | `60` |
+
+### 新增機制：getDynamicColor
+
+Widget 介面新增可選方法 `getDynamicColor()`，讓 widget 依據執行狀態動態決定顏色，覆寫靜態設定的 `color`。目前 Context Dots 和 Context Percentage 使用此機制。
+
+### 設定範例
+
+安裝後可參考 `config/settings.example.json`，提供兩行式佈局：
+
+- **第一行**：Model | Thinking Effort | Context Dots | Random Quote
+- **第二行**：Git Root Dir | Git Branch | Git File Status | Git Changes
+
+## 安裝
+
+```bash
+# 使用 npx
+npx -y @ader-hwang/ccstatusline@latest
+
+# 使用 bunx
+bunx -y @ader-hwang/ccstatusline@latest
+```
+
+在 `~/.claude/settings.json` 中設定：
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y @ader-hwang/ccstatusline@latest",
+    "padding": 0
+  }
+}
+```
+
+設定檔位於 `~/.config/ccstatusline/settings.json`，可手動編輯或透過 TUI 設定。
+
+---
+
+## 以下為原始 ccstatusline 文件
+
+---
 
 ## 📚 Table of Contents
 

@@ -19,9 +19,15 @@ import {
 } from './shared/context-inverse';
 import { formatRawOrLabeledValue } from './shared/raw-or-labeled';
 
+function getThresholdColor(percentage: number): string {
+    if (percentage < 50) return 'green';
+    if (percentage < 70) return 'yellow';
+    return 'red';
+}
+
 export class ContextPercentageWidget implements Widget {
-    getDefaultColor(): string { return 'blue'; }
-    getDescription(): string { return 'Shows percentage of context window used or remaining'; }
+    getDefaultColor(): string { return 'green'; }
+    getDescription(): string { return 'Shows percentage of context window used or remaining (color changes by threshold)'; }
     getDisplayName(): string { return 'Context %'; }
     getCategory(): string { return 'Context'; }
     getEditorDisplay(item: WidgetItem): WidgetEditorDisplay {
@@ -33,6 +39,28 @@ export class ContextPercentageWidget implements Widget {
 
     handleEditorAction(action: string, item: WidgetItem): WidgetItem | null {
         return handleContextInverseAction(action, item);
+    }
+
+    getDynamicColor(item: WidgetItem, context: RenderContext, _settings: Settings): string | null {
+        const isInverse = isContextInverse(item);
+        const contextWindowMetrics = getContextWindowMetrics(context.data);
+
+        let usedPercentage: number | null = null;
+
+        if (contextWindowMetrics.usedPercentage !== null) {
+            usedPercentage = contextWindowMetrics.usedPercentage;
+        } else if (context.tokenMetrics) {
+            const modelIdentifier = getModelContextIdentifier(context.data?.model);
+            const contextConfig = getContextConfig(modelIdentifier, contextWindowMetrics.windowSize);
+            usedPercentage = Math.min(100, (context.tokenMetrics.contextLength / contextConfig.maxTokens) * 100);
+        }
+
+        if (usedPercentage === null) return null;
+
+        const displayPercentage = isInverse ? (100 - usedPercentage) : usedPercentage;
+        // For inverse mode, threshold is based on actual usage, not remaining
+        const thresholdPercentage = isInverse ? usedPercentage : displayPercentage;
+        return getThresholdColor(thresholdPercentage);
     }
 
     render(item: WidgetItem, context: RenderContext, settings: Settings): string | null {
