@@ -19,69 +19,81 @@
 
 </div>
 
-## Fork 說明
+## About This Fork / 關於此 Fork
 
-本專案 fork 自 [sirmalloc/ccstatusline](https://github.com/sirmalloc/ccstatusline)，新增以下功能：
+A customized fork of [sirmalloc/ccstatusline](https://github.com/sirmalloc/ccstatusline) with additional widgets and dynamic color support.
+
+本專案 fork 自 [sirmalloc/ccstatusline](https://github.com/sirmalloc/ccstatusline)，新增自訂 widget 及動態顏色機制。
 
 ![Screenshot](https://raw.githubusercontent.com/ader/ccstatusline/main/screenshots/ccusageExt.png)
 
-### 新增 Widget
+### New Widgets / 新增 Widget
 
-#### Context Dots（彩色圓點進度條）
+#### Context Dots
+
+Visualizes context usage as colored dots, with automatic color changes based on thresholds:
 
 以圓點視覺化顯示 context 使用率，依門檻自動變色：
 
-- `< 50%`：綠色 (green)
-- `50% ~ 70%`：黃色 (yellow)
-- `>= 70%`：紅色 (red)
+- `< 50%`: Green / 綠色
+- `50% ~ 70%`: Yellow / 黃色
+- `>= 70%`: Red / 紅色
 
-顯示效果：`Ctx: ●●●●●○○○○○ 46.0%`
+Display example / 顯示效果：`Ctx: ●●●●●○○○○○ 46.0%`
 
-| 參數 | 說明 | 預設值 |
+| Parameter / 參數 | Description / 說明 | Default / 預設值 |
 |------|------|--------|
-| `metadata.dots` | 圓點總數 | `10` |
+| `metadata.dots` | Total number of dots / 圓點總數 | `10` |
 
-#### Git File Status（檔案狀態計數）
+#### Git File Status
 
-顯示 git 工作區的檔案狀態計數，與 `git-changes`（顯示行數增刪）互補：
+Shows git file status counts, complementing `git-changes` (which shows line insertions/deletions).
 
-顯示效果：`+3 ~2 ?1`（3 個 staged、2 個 modified、1 個 untracked）
+顯示 git 工作區的檔案狀態計數，與 `git-changes`（顯示行數增刪）互補。
 
-無變更時顯示 `clean`。
+Display example / 顯示效果：`+3 ~2 ?1` (3 staged, 2 modified, 1 untracked)
 
-#### Random Quote（隨機格言）
+Shows `clean` when there are no changes. / 無變更時顯示 `clean`。
+
+#### Random Quote
+
+Displays random custom phrases on a timer. Shows the same phrase within each time window (consistent across process restarts).
 
 定時隨機顯示自訂詞句，同一時間窗口內顯示同一句（跨 process 一致）。
 
-顯示效果：`保持專注`
+Display example / 顯示效果：`Keep it simple`
 
-| 參數 | 說明 | 預設值 |
+| Parameter / 參數 | Description / 說明 | Default / 預設值 |
 |------|------|--------|
-| `metadata.quotes` | 自訂詞句，以 `\|` 分隔 | 5 句英文預設語 |
-| `metadata.interval` | 切換間隔（秒） | `60` |
+| `metadata.quotes` | Custom phrases, separated by `\|` / 自訂詞句，以 `\|` 分隔 | 5 default English phrases / 5 句英文預設語 |
+| `metadata.interval` | Rotation interval in seconds / 切換間隔（秒） | `60` |
 
-### 新增機制：getDynamicColor
+### getDynamicColor
+
+Added an optional `getDynamicColor()` method to the Widget interface, allowing widgets to determine their color dynamically based on runtime state, overriding the static `color` setting. Currently used by Context Dots and Context Percentage.
 
 Widget 介面新增可選方法 `getDynamicColor()`，讓 widget 依據執行狀態動態決定顏色，覆寫靜態設定的 `color`。目前 Context Dots 和 Context Percentage 使用此機制。
 
-### 設定範例
+### Example Layout / 設定範例
+
+See `config/settings.example.json` for a two-line layout:
 
 安裝後可參考 `config/settings.example.json`，提供兩行式佈局：
 
-- **第一行**：Model | Thinking Effort | Context Dots | Random Quote
-- **第二行**：Git Root Dir | Git Branch | Git File Status | Git Changes
+- **Line 1 / 第一行**：Model | Thinking Effort | Context Dots | Random Quote
+- **Line 2 / 第二行**：Git Root Dir | Git Branch | Git File Status | Git Changes
 
-## 安裝
+## Installation / 安裝
 
 ```bash
-# 使用 npx
+# Using npx
 npx -y @ader-hwang/ccstatusline@latest
 
-# 使用 bunx
+# Using bunx
 bunx -y @ader-hwang/ccstatusline@latest
 ```
 
-在 `~/.claude/settings.json` 中設定：
+Add to `~/.claude/settings.json` / 在 `~/.claude/settings.json` 中設定：
 
 ```json
 {
@@ -93,11 +105,13 @@ bunx -y @ader-hwang/ccstatusline@latest
 }
 ```
 
+Settings are stored at `~/.config/ccstatusline/settings.json`. You can edit manually or configure via the TUI.
+
 設定檔位於 `~/.config/ccstatusline/settings.json`，可手動編輯或透過 TUI 設定。
 
 ---
 
-## 以下為原始 ccstatusline 文件
+## Original ccstatusline Documentation / 以下為原始 ccstatusline 文件
 
 ---
 
