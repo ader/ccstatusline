@@ -17,73 +17,56 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/ader/ccstatusline/blob/main/LICENSE)
 [![Node.js Version](https://img.shields.io/node/v/@ader-hwang/ccstatusline.svg)](https://nodejs.org)
 
+**[正體中文](README.zh-TW.md)**
+
 </div>
 
-## About This Fork / 關於此 Fork
+## About This Fork
 
 A customized fork of [sirmalloc/ccstatusline](https://github.com/sirmalloc/ccstatusline) with additional widgets and dynamic color support.
 
-本專案 fork 自 [sirmalloc/ccstatusline](https://github.com/sirmalloc/ccstatusline)，新增自訂 widget 及動態顏色機制。
-
 ![Screenshot](https://raw.githubusercontent.com/ader/ccstatusline/main/screenshots/ccusageExt.png)
 
-### New Widgets / 新增 Widget
+### New Widgets
 
 #### Context Dots
 
 Visualizes context usage as colored dots, with automatic color changes based on thresholds:
 
-以圓點視覺化顯示 context 使用率，依門檻自動變色：
+- `< 50%`: Green
+- `50% ~ 70%`: Yellow
+- `>= 70%`: Red
 
-- `< 50%`: Green / 綠色
-- `50% ~ 70%`: Yellow / 黃色
-- `>= 70%`: Red / 紅色
+Display example: `Ctx: ●●●●●○○○○○ 46.0%`
 
-Display example / 顯示效果：`Ctx: ●●●●●○○○○○ 46.0%`
-
-| Parameter / 參數 | Description / 說明 | Default / 預設值 |
-|------|------|--------|
-| `metadata.dots` | Total number of dots / 圓點總數 | `10` |
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `metadata.dots` | Total number of dots | `10` |
 
 #### Git File Status
 
 Shows git file status counts, complementing `git-changes` (which shows line insertions/deletions).
 
-顯示 git 工作區的檔案狀態計數，與 `git-changes`（顯示行數增刪）互補。
+Display example: `+3 ~2 ?1` (3 staged, 2 modified, 1 untracked)
 
-Display example / 顯示效果：`+3 ~2 ?1` (3 staged, 2 modified, 1 untracked)
-
-Shows `clean` when there are no changes. / 無變更時顯示 `clean`。
+Shows `clean` when there are no changes.
 
 #### Random Quote
 
 Displays random custom phrases on a timer. Shows the same phrase within each time window (consistent across process restarts).
 
-定時隨機顯示自訂詞句，同一時間窗口內顯示同一句（跨 process 一致）。
+Display example: `Keep it simple`
 
-Display example / 顯示效果：`Keep it simple`
-
-| Parameter / 參數 | Description / 說明 | Default / 預設值 |
-|------|------|--------|
-| `metadata.quotes` | Custom phrases, separated by `\|` / 自訂詞句，以 `\|` 分隔 | 5 default English phrases / 5 句英文預設語 |
-| `metadata.interval` | Rotation interval in seconds / 切換間隔（秒） | `60` |
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `metadata.quotes` | Custom phrases, separated by `\|` | 5 default English phrases |
+| `metadata.interval` | Rotation interval in seconds | `60` |
 
 ### getDynamicColor
 
 Added an optional `getDynamicColor()` method to the Widget interface, allowing widgets to determine their color dynamically based on runtime state, overriding the static `color` setting. Currently used by Context Dots and Context Percentage.
 
-Widget 介面新增可選方法 `getDynamicColor()`，讓 widget 依據執行狀態動態決定顏色，覆寫靜態設定的 `color`。目前 Context Dots 和 Context Percentage 使用此機制。
-
-### Example Layout / 設定範例
-
-See `config/settings.example.json` for a two-line layout:
-
-安裝後可參考 `config/settings.example.json`，提供兩行式佈局：
-
-- **Line 1 / 第一行**：Model | Thinking Effort | Context Dots | Random Quote
-- **Line 2 / 第二行**：Git Root Dir | Git Branch | Git File Status | Git Changes
-
-## Installation / 安裝
+## Installation
 
 ```bash
 # Using npx
@@ -93,7 +76,7 @@ npx -y @ader-hwang/ccstatusline@latest
 bunx -y @ader-hwang/ccstatusline@latest
 ```
 
-Add to `~/.claude/settings.json` / 在 `~/.claude/settings.json` 中設定：
+Add to `~/.claude/settings.json`:
 
 ```json
 {
@@ -107,11 +90,63 @@ Add to `~/.claude/settings.json` / 在 `~/.claude/settings.json` 中設定：
 
 Settings are stored at `~/.config/ccstatusline/settings.json`. You can edit manually or configure via the TUI.
 
-設定檔位於 `~/.config/ccstatusline/settings.json`，可手動編輯或透過 TUI 設定。
+### Example Layout
+
+Two-line layout — **Line 1**: Model | Thinking Effort | Context Dots | Random Quote, **Line 2**: Git Root Dir | Git Branch | Git File Status | Git Changes
+
+Copy the following to `~/.config/ccstatusline/settings.json` (also available as `config/settings.example.json`):
+
+```json
+{
+  "version": 3,
+  "lines": [
+    [
+      { "id": "1", "type": "model", "color": "cyan" },
+      { "id": "2", "type": "separator" },
+      { "id": "3", "type": "thinking-effort" },
+      { "id": "4", "type": "separator" },
+      { "id": "5", "type": "context-dots" },
+      { "id": "6", "type": "separator" },
+      {
+        "id": "7",
+        "type": "random-quote",
+        "color": "brightCyan",
+        "metadata": {
+          "quotes": "Keep it simple|Stay focused|Less is more|Ship it first|Code for humans|Don't over-engineer|One thing at a time|Coffee loading...|Keep Calm & Code On|Enjoy the process",
+          "interval": "300"
+        }
+      }
+    ],
+    [
+      { "id": "8", "type": "git-root-dir" },
+      { "id": "9", "type": "separator" },
+      { "id": "10", "type": "git-branch", "color": "magenta" },
+      { "id": "11", "type": "separator" },
+      { "id": "12", "type": "git-file-status", "color": "brightBlue" },
+      { "id": "13", "type": "separator" },
+      { "id": "14", "type": "git-changes", "color": "blue" }
+    ],
+    []
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 2,
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [""],
+    "separatorInvertBackground": [false],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false
+  }
+}
+```
 
 ---
 
-## Original ccstatusline Documentation / 以下為原始 ccstatusline 文件
+## Original ccstatusline Documentation
 
 ---
 
