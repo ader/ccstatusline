@@ -100,11 +100,11 @@ describe('isKnownCommand', () => {
     });
 
     it('should not match partial prefix', () => {
-        expect(isKnownCommand('npx -y ccstatusline')).toBe(false);
+        expect(isKnownCommand('npx -y @ader-hwang/ccstatusline')).toBe(false);
     });
 
     it('should not match prefix that is a substring', () => {
-        expect(isKnownCommand('npx -y ccstatusline@latestFOO')).toBe(false);
+        expect(isKnownCommand('npx -y @ader-hwang/ccstatusline@latestFOO')).toBe(false);
     });
 });
 

@@ -23,8 +23,8 @@ const writeFile = fs.promises.writeFile;
 const mkdir = fs.promises.mkdir;
 
 export const CCSTATUSLINE_COMMANDS = {
-    NPM: 'npx -y ccstatusline@latest',
-    BUNX: 'bunx -y ccstatusline@latest',
+    NPM: 'npx -y @ader-hwang/ccstatusline@latest',
+    BUNX: 'bunx -y @ader-hwang/ccstatusline@latest',
     SELF_MANAGED: 'ccstatusline'
 };
 
