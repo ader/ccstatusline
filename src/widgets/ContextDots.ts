@@ -20,54 +20,11 @@ import {
     isContextInverse
 } from './shared/context-inverse';
 import { formatRawOrLabeledValue } from './shared/raw-or-labeled';
-
-const FILLED_DOT = '●';
-const EMPTY_DOT = '○';
-const DEFAULT_DOT_COUNT = 10;
-
-function getDotColor(dotIndex: number, filledCount: number, totalDots: number): string {
-    // Each dot represents a percentage range
-    const dotPercent = ((dotIndex + 1) / totalDots) * 100;
-
-    if (dotPercent <= 50) return 'green';
-    if (dotPercent <= 70) return 'yellow';
-    return 'red';
-}
-
-function getDotCount(item: WidgetItem): number {
-    const count = item.metadata?.dots;
-    if (count) {
-        const parsed = parseInt(count, 10);
-        if (!isNaN(parsed) && parsed > 0 && parsed <= 20) return parsed;
-    }
-    return DEFAULT_DOT_COUNT;
-}
-
-function makeColoredDotBar(
-    percentage: number,
-    totalDots: number,
-    colorLevel: 'ansi16' | 'ansi256' | 'truecolor'
-): string {
-    const filledCount = Math.round((percentage / 100) * totalDots);
-    const color = getThresholdColor(percentage);
-    let result = '';
-
-    for (let i = 0; i < totalDots; i++) {
-        if (i < filledCount) {
-            result += applyColors(FILLED_DOT, color, undefined, false, colorLevel);
-        } else {
-            result += applyColors(EMPTY_DOT, 'brightBlack', undefined, false, colorLevel);
-        }
-    }
-
-    return result;
-}
-
-function getThresholdColor(percentage: number): string {
-    if (percentage < 50) return 'green';
-    if (percentage < 70) return 'yellow';
-    return 'red';
-}
+import {
+    getDotCount,
+    getThresholdColor,
+    makeColoredDotBar
+} from './shared/dots';
 
 export class ContextDotsWidget implements Widget {
     getDefaultColor(): string { return 'green'; }

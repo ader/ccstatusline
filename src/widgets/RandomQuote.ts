@@ -34,14 +34,16 @@ function getInterval(item: WidgetItem): number {
 }
 
 /**
- * Use a simple hash of the time-window index to deterministically
+ * Use a multi-round hash of the time-window index to deterministically
  * pick a quote. Same window = same quote, even across process restarts.
  */
 function getQuoteIndex(quotes: string[], intervalSeconds: number): number {
-    const window = Math.floor(Date.now() / (intervalSeconds * 1000));
-    // Simple hash to scatter index across quotes array
-    const hash = ((window * 2654435761) >>> 0) % quotes.length;
-    return hash;
+    let h = Math.floor(Date.now() / (intervalSeconds * 1000));
+    // xmur3-style integer hash for better distribution
+    h = ((h >>> 16) ^ h) * 0x45d9f3b | 0;
+    h = ((h >>> 16) ^ h) * 0x45d9f3b | 0;
+    h = (h >>> 16) ^ h;
+    return ((h >>> 0) % quotes.length);
 }
 
 export class RandomQuoteWidget implements Widget {

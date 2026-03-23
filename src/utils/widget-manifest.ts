@@ -56,7 +56,9 @@ export const WIDGET_MANIFEST: WidgetManifestEntry[] = [
     { type: 'context-dots', create: () => new widgets.ContextDotsWidget() },
     { type: 'skills', create: () => new widgets.SkillsWidget() },
     { type: 'thinking-effort', create: () => new widgets.ThinkingEffortWidget() },
-    { type: 'random-quote', create: () => new widgets.RandomQuoteWidget() }
+    { type: 'random-quote', create: () => new widgets.RandomQuoteWidget() },
+    { type: 'session-usage-dots', create: () => new widgets.SessionUsageDotsWidget() },
+    { type: 'weekly-usage-dots', create: () => new widgets.WeeklyUsageDotsWidget() }
 ];
 
 export const LAYOUT_WIDGET_MANIFEST: LayoutWidgetManifestEntry[] = [

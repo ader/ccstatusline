@@ -38,3 +38,5 @@ export { LinkWidget } from './Link';
 export { SkillsWidget } from './Skills';
 export { ThinkingEffortWidget } from './ThinkingEffort';
 export { RandomQuoteWidget } from './RandomQuote';
+export { SessionUsageDotsWidget } from './SessionUsageDots';
+export { WeeklyUsageDotsWidget } from './WeeklyUsageDots';
