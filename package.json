@@ -1,6 +1,6 @@
 {
   "name": "@ader-hwang/ccstatusline",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Customized ccstatusline with context-dots, git-file-status, random-quote widgets",
   "module": "src/ccstatusline.ts",
   "type": "module",
